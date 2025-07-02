@@ -1,0 +1,40 @@
+MCDropout: true
+accelerator: gpu
+calibration: false
+data_split:
+- 0
+- 50
+- 50
+devices: 1
+dropout: 0.1
+input_dir: /pscratch/sd/l/lperon/UQ_data/MCD/trackML/pt>1GeV/200/filter/
+model: InteractionGNN
+n_train: 200
+nb_MCD_passes: 100
+nodes: 1
+plots:
+  graph_mcdropout_uncertainty:
+    pt_units: MeV
+    title: Interaction GNN MCDropout Uncertainty
+  graph_roc_curve:
+    title: Interaction GNN ROC curve
+  graph_scoring_efficiency:
+    pt_units: MeV
+    title: Interaction GNN Edge-wise Efficiency
+  gnn_purity_rz:
+    pt_units: MeV
+    title: Interaction GNN Purity in RZ
+  gnn_efficiency_rz:
+    pt_units: MeV
+    title: Interaction GNN Efficiency in RZ
+project: UQ_MCD_pt>1GeV_gnn_200
+score_cut: 0.5
+stage: edge_classifier
+stage_dir: /pscratch/sd/l/lperon/UQ_data/MCD/trackML/pt>1GeV/200/gnn/
+target_tracks:
+  nhits:
+  - 3.0
+  - .inf
+  pt:
+  - 1000.0
+  - .inf

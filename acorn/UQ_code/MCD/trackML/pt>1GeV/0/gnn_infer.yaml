@@ -1,0 +1,18 @@
+MCDropout: true
+accelerator: gpu
+calibration: false
+data_split:
+- 50
+- 50
+- 50
+devices: 1
+dropout: 0.1
+input_dir: /pscratch/sd/l/lperon/UQ_data/MCD/trackML/pt>1GeV/0/filter/
+max_epochs: 300
+model: InteractionGNN
+n_train: 0
+nb_MCD_passes: 100
+nodes: 1
+project: UQ_MCD_all_pt_gnn_50
+stage: edge_classifier
+stage_dir: /pscratch/sd/l/lperon/UQ_data/MCD/trackML/pt>1GeV/0/gnn/

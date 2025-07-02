@@ -1,0 +1,21 @@
+data_split:
+- 0
+- 50
+- 50
+input_dir: /pscratch/sd/l/lperon/ATLAS/data_dir/Example_3/feature_store/
+model: MetricLearning
+n_train: 50
+plots:
+  graph_construction_efficiency:
+    pt_units: MeV
+    title: Metric Learning Edge-wise Efficiency
+project: UQ_MCD_pt>1GeV_metric_learning_50
+stage: graph_construction
+stage_dir: /pscratch/sd/l/lperon/UQ_data/MCD/trackML/pt>1GeV/50/metric_learning/
+target_tracks:
+  nhits:
+  - 3.0
+  - .inf
+  pt:
+  - 1000.0
+  - .inf

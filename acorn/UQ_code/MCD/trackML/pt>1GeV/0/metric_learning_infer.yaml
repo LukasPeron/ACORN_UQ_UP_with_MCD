@@ -1,0 +1,15 @@
+accelerator: gpu
+data_split:
+- 50
+- 50
+- 50
+devices: 1
+input_dir: /pscratch/sd/l/lperon/ATLAS/data_dir/Example_3/feature_store/
+knn_infer: 100
+model: MetricLearning
+n_train: 0
+nodes: 1
+project: UQ_MCD_all_pt_metric_learning_50
+r_infer: 0.1
+stage: graph_construction
+stage_dir: /pscratch/sd/l/lperon/UQ_data/MCD/trackML/pt>1GeV/0/metric_learning/

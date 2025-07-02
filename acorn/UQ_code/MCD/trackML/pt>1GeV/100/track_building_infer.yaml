@@ -1,0 +1,17 @@
+calibration: true
+data_split:
+- 100
+- 50
+- 50
+input_dir: /pscratch/sd/l/lperon/UQ_data/MCD/trackML/pt>1GeV/100/gnn/
+log_level: INFO
+max_workers: 8
+model: CCandWalk
+n_train: 100
+project: UQ_MCD_pt>1GeV_track_building_100
+score_cut_cc: 0.01
+score_cut_walk:
+  add: 0.6
+  min: 0.1
+stage: track_building
+stage_dir: /pscratch/sd/l/lperon/UQ_data/MCD/trackML/pt>1GeV/100/track_building/

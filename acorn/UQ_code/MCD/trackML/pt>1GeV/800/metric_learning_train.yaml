@@ -1,0 +1,77 @@
+accelerator: gpu
+activation: Tanh
+data_split:
+- 800
+- 50
+- 50
+devices: 1
+emb_dim: 12
+emb_hidden: 1024
+factor: 0.7
+hard_cuts:
+  pt:
+  - 1000.0
+  - .inf
+input_dir: /pscratch/sd/l/lperon/ATLAS/data_dir/Example_3/feature_store/
+knn: 100
+knn_val: 1000
+lr: 0.01
+margin: 0.1
+max_epochs: 100
+metric_mode: max
+metric_to_monitor: f1
+model: MetricLearning
+n_train: 800
+nb_layer: 4
+node_features:
+- r
+- phi
+- z
+- cell_count
+- cell_val
+- leta
+- lphi
+- lx
+- ly
+- lz
+- geta
+- gphi
+node_scales:
+- 1000
+- 3.14
+- 1000
+- 1
+- 1
+- 1
+- 1
+- 0.1
+- 1
+- 0.1
+- 1
+- 3.14
+nodes: 1
+patience: 10
+points_per_batch: 100000
+project: UQ_MCD_pt>1GeV_metric_learning_800
+r_train: 0.1
+randomisation: 1
+stage: graph_construction
+stage_dir: /pscratch/sd/l/lperon/UQ_data/MCD/trackML/pt>1GeV/800/metric_learning/
+undirected: true
+warmup: 5
+weighting:
+- conditions:
+    y: false
+  weight: 1.0
+- conditions:
+    y: true
+  weight: 0.0
+- conditions:
+    nhits:
+    - 3.0
+    - .inf
+    pt:
+    - 1000.0
+    - .inf
+    y: true
+  weight: 3.0
