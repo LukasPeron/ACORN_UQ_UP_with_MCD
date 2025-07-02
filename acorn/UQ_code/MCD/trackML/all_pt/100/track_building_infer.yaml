@@ -1,0 +1,24 @@
+# CommonFramework configuration
+stage: track_building
+model: CCandWalk
+input_dir: /pscratch/sd/l/lperon/UQ_data/MCD/trackML/all_pt/100/gnn/
+stage_dir: /pscratch/sd/l/lperon/UQ_data/MCD/trackML/all_pt/100/track_building/
+
+# Dataset parameters
+data_split:
+- 100
+- 50
+- 50
+score_cut_cc: 0.01
+score_cut_walk:
+  add: 0.6
+  min: 0.1
+
+# TO TREAT LATER
+calibration: false
+
+devices: 1
+log_level: INFO
+max_workers: 8
+n_train: 100
+

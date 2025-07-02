@@ -1,0 +1,21 @@
+# Common Framework configuration
+stage: graph_construction
+model: MetricLearning
+input_dir: /pscratch/sd/l/lperon/ATLAS/data_dir/Example_3/feature_store/
+stage_dir: /pscratch/sd/l/lperon/UQ_data/MCD/trackML/all_pt/200/metric_learning/
+project: UQ_MCD_all_pt_metric_learning_200_HightPT_targets
+accelerator: gpu
+devices: 1
+nodes: 1
+
+# Dataset parameters
+data_split:
+- 200 # training events
+- 50   # validation events
+- 50   # test events
+
+# Model inference parameters
+input_dropout: 0      # see readme for details
+hidden_dropout: 0   # see readme for details
+knn_infer: 100
+r_infer: 0.1

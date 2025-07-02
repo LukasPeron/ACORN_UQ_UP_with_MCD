@@ -1,0 +1,79 @@
+# Common Framework configuration
+stage: edge_classifier
+model: InteractionGNN
+input_dir: /pscratch/sd/l/lperon/UQ_data/MCD/trackML/all_pt/200/filter/
+stage_dir: /pscratch/sd/l/lperon/UQ_data/MCD/trackML/all_pt/200/gnn/
+project: UQ_MCD_all_pt_gnn_200_HightPT_targets
+accelerator: gpu
+devices: 4
+nodes: 1
+
+# Dataset parameters
+data_split:
+- 200
+- 50
+- 50
+input_cut: 0.05
+
+# Truth and weighting parameters. Syntax is...
+# Single value: track[key] == value
+# List of 2 floats: value1 <= track[key] <= value2
+# List with a string as the first value: First value defines the boolean test, the second value is a list or value. Boolean tests are: (in, not_in, is, is_not, within, not_within)
+# All other tracks follow the default: If a true edge, weight=0. If a fake edge, weight=1.
+weighting:
+- conditions:
+    y: false
+  weight: 0.1
+- conditions:
+    y: true
+  weight: 0.0
+- conditions:
+    nhits:
+    - 3.0
+    - .inf
+    pt:
+    - 1000.0
+    - .inf
+    y: true
+  weight: 1.0
+
+
+# A list of hard cut conditions. Any hits not passing these conditions will be removed from the training and validation dataset.
+# By definition, noise will not pass any of these cuts, so any hard cuts will remove noise.
+hard_cuts:
+  pt:
+  - 0.0
+  - .inf
+
+# Model parameters
+edge_cut: 0.5
+undirected: True
+undirected_message_passing: True
+node_features:
+- r
+- phi
+- z
+node_scales:
+- 1000
+- 3.14
+- 1000
+hidden: 128
+n_graph_iters: 8
+nb_node_layer: 2
+nb_edge_layer: 2
+layernorm: true
+batchnorm: false
+aggregation: sum
+hidden_activation: SiLU
+output_activation: Tanh
+
+# Training parameters
+warmup: 5
+ratio: 5
+scheduler: StepLR
+lr: 0.001
+factor: 0.9
+patience: 10
+max_epochs: 350
+input_dropout: 0.1
+hidden_dropout: 0.1

@@ -1,0 +1,50 @@
+# Common Framework configuration
+stage: edge_classifier
+model: InteractionGNN
+input_dir: /pscratch/sd/l/lperon/UQ_data/MCD/trackML/all_pt/800/filter/
+stage_dir: /pscratch/sd/l/lperon/UQ_data/MCD/trackML/all_pt/800/gnn/
+project: UQ_MCD_all_pt_gnn_800_HightPT_targets
+accelerator: gpu
+devices: 1
+nodes: 1
+
+# Dataset parameters
+data_split:
+- 0
+- 50
+- 50
+
+# Evaluation parameters
+score_cut: 0.5
+target_tracks:
+  nhits:
+  - 3.0
+  - .inf
+  pt:
+  - 1000.0
+  - .inf
+
+# Plotting parameters
+plots:
+  graph_mcdropout_uncertainty:
+    pt_units: MeV
+    title: Interaction GNN MCDropout Uncertainty
+  graph_roc_curve:
+    title: Interaction GNN ROC curve
+  graph_scoring_efficiency:
+    pt_units: MeV
+    title: Interaction GNN Edge-wise Efficiency
+  gnn_purity_rz:
+    pt_units: MeV
+    title: Interaction GNN Purity in RZ
+  gnn_efficiency_rz:
+    pt_units: MeV
+    title: Interaction GNN Efficiency in RZ
+
+# TO TREAT LATER
+calibration: false
+input_dropout: 0.1
+hidden_dropout: 0.1
+input_cut: 0.0
+n_train: 800
+nb_MCD_passes: 100

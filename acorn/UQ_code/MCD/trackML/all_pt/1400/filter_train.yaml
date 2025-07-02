@@ -1,0 +1,93 @@
+# Common Framework configuration
+stage: edge_classifier
+model: Filter
+input_dir: /pscratch/sd/l/lperon/UQ_data/MCD/trackML/all_pt/1400/metric_learning/
+stage_dir: /pscratch/sd/l/lperon/UQ_data/MCD/trackML/all_pt/1400/filter/
+project: UQ_MCD_all_pt_filter_1400_HightPT_targets
+accelerator: gpu
+devices: 4
+nodes: 1
+
+#Dataset parameters
+data_split:
+- 1400
+- 50
+- 50
+
+# Truth and weighting parameters. Syntax is...
+# Single value: track[key] == value
+# List of 2 floats: value1 <= track[key] <= value2
+# List with a string as the first value: First value defines the boolean test, the second value is a list or value. Boolean tests are: (in, not_in, is, is_not, within, not_within)
+# All other tracks follow the default: If a true edge, weight=0. If a fake edge, weight=1.
+weighting:
+- conditions:
+    y: false
+  weight: 1.0
+- conditions:
+    y: true
+  weight: 0.0
+- conditions:
+    nhits:
+    - 3.0
+    - .inf
+    pt:
+    - 1000.0
+    - .inf
+    y: true
+  weight: 2.0
+
+# A list of hard cut conditions. Any hits not passing these conditions will be removed from the training and validation dataset.
+# By definition, noise will not pass any of these cuts, so any hard cuts will remove noise.
+hard_cuts:
+  pt:
+  - 0.0
+  - .inf
+
+# Model parameters
+undirected: true
+edge_cut: 0.5
+node_features:
+- r
+- phi
+- z
+- cell_count
+- cell_val
+- leta
+- lphi
+- lx
+- ly
+- lz
+- geta
+- gphi
+node_scales:
+- 1000
+- 3.14
+- 1000
+- 1
+- 1
+- 1
+- 1
+- 0.1
+- 1
+- 0.1
+- 1
+- 3.14
+hidden: 1024
+nb_layer: 4
+layernorm: true
+batchnorm: false
+hidden_activation: ReLU
+input_dropout: 0
+hidden_dropout: 0.1
+
+
+# Training parameters
+warmup: 10
+ratio: 5
+scheduler: StepLR
+lr: 0.001
+factor: 0.8
+patience: 10
+max_epochs: 300
+metric_to_monitor: auc
+metric_mode: max

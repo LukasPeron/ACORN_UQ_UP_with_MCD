@@ -1,0 +1,59 @@
+MCDropout: true
+accelerator: gpu
+aggregation: sum
+batchnorm: false
+calibration: false
+data_split:
+- 200
+- 50
+- 50
+devices: 1
+dropout: 0.1
+edge_cut: 0.5
+edge_net_recurrent: true
+factor: 0.9
+hard_cuts:
+  track_particle_pt:
+  - 0.0
+  - .inf
+hidden: 128
+hidden_activation: SiLU
+input_dir: /pscratch/sd/l/lperon/UQ_data/MCD/trackML/all_pt/200/filter/
+layernorm: true
+lr: 0.001
+max_epochs: 300
+model: InteractionGNN
+n_graph_iters: 8
+n_train: 200
+nb_MCD_passes: 100
+nb_edge_layer: 2
+nb_node_layer: 2
+node_features:
+- hit_r
+- hit_phi
+- hit_z
+node_net_recurrent: true
+node_scales:
+- 1000
+- 3.14
+- 1000
+nodes: 1
+output_activation: Tanh
+patience: 10
+project: UQ_MCD_all_pt_gnn_200
+ratio: 5
+scheduler: StepLR
+stage: edge_classifier
+stage_dir: /pscratch/sd/l/lperon/UQ_data/MCD/trackML/all_pt/200/gnn/
+track_running_stats: false
+warmup: 5
+weighting:
+- conditions:
+    edge_y: true
+    track_particle_nhits:
+    - 3
+    - .inf
+    track_particle_pt:
+    - 0.0
+    - .inf
+  weight: 1.0

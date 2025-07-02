@@ -1,0 +1,40 @@
+# Common Framework configuration
+stage: edge_classifier
+model: InteractionGNN
+input_dir: /pscratch/sd/l/lperon/UQ_data/MCD/trackML/all_pt/1400/filter/
+stage_dir: /pscratch/sd/l/lperon/UQ_data/MCD/trackML/all_pt/1400/gnn/
+project: UQ_MCD_all_pt_gnn_1400_HightPT_targets
+accelerator: gpu
+devices: 1
+nodes: 1
+
+# Dataset parameters
+data_split:
+- 0
+- 50
+- 50
+
+# Evaluation parameters
+score_cut: 0.5
+target_tracks:
+  nhits:
+  - 3.0
+  - .inf
+  pt:
+  - 1000.0
+  - .inf
+
+# Plotting parameters
+plots:
+  graph_mcdropout_uncertainty:
+    pt_units: MeV
+    title: Interaction GNN MCDropout Uncertainty
+
+# TO TREAT LATER
+calibration: false
+input_dropout: 0.95
+hidden_dropout: 0.95
+input_cut: 0.05 # default value is 0.05, one may want to set it to 0.0 for MCDropout in order to perform uncertainty propagation later.
+n_train: 1400
+nb_MCD_passes: 100
+multi_dropout: true

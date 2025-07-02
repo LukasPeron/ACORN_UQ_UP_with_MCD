@@ -1,0 +1,31 @@
+# Common Framework configuration
+stage: edge_classifier
+model: InteractionGNN
+input_dir: /pscratch/sd/l/lperon/UQ_data/MCD/trackML/all_pt/50/filter/
+stage_dir: /pscratch/sd/l/lperon/UQ_data/MCD/trackML/all_pt/50/gnn/
+project: UQ_MCD_all_pt_gnn_50_HightPT_targets
+accelerator: gpu
+devices: 4
+nodes: 1
+
+# Dataset parameters
+data_split:
+- 50
+- 50
+- 50
+
+# Evaluation parameters
+score_cut: 0.5
+target_tracks:
+  nhits:
+  - 3.0
+  - .inf
+  pt:
+  - 1000.0
+  - .inf
+
+# TO TREAT LATER
+input_dropout: 0.1
+hidden_dropout: 0.1
+n_train: 50
+nb_MCD_passes: 100

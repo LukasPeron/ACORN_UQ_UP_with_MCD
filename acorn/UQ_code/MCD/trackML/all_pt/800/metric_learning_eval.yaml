@@ -1,0 +1,34 @@
+# Common Framework configuration
+stage: graph_construction
+model: MetricLearning
+input_dir: /pscratch/sd/l/lperon/ATLAS/data_dir/Example_3/feature_store/
+stage_dir: /pscratch/sd/l/lperon/UQ_data/MCD/trackML/all_pt/800/metric_learning/
+project: UQ_MCD_all_pt_metric_learning_800_HightPT_targets
+devices: 1
+nodes: 1
+
+# Dataset configuration
+data_split:
+- 0
+- 50
+- 50
+
+# Evaluation parameters
+target_tracks:
+  nhits:
+  - 3.0
+  - .inf
+  pt:
+  - 1000.0
+  - .inf
+
+# Plotting parameters
+plots:
+  graph_construction_efficiency:
+    pt_units: MeV
+    title: Metric Learning Edge-wise Efficiency
+
+# TO TREAT LATER
+n_train: 800
+input_dropout: 0
+hidden_dropout: 0
