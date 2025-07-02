@@ -1,0 +1,19 @@
+# Common Framework configuration
+stage: edge_classifier
+model: InteractionGNN
+input_dir: MY_DATA_DIR/Example_TrackML_UQ/filter/
+stage_dir: MY_DATA_DIR/Example_TrackML_UQ/gnn/
+project: UQ_MCD_all_pt_gnn_1400_HightPT_targets
+accelerator: gpu
+devices: 1
+nodes: 1
+
+# Model inference parameters
+input_cut: 0.05
+calibration: false
+
+# Dataset parameters
+data_split:
+- 1400
+- 50
+- 50

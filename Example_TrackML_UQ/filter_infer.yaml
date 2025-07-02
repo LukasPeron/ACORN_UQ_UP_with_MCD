@@ -1,0 +1,18 @@
+# Common Framework configuration
+stage: edge_classifier
+model: Filter
+input_dir: MY_DATA_DIR/Example_TrackML_UQ/metric_learning/
+stage_dir: MY_DATA_DIR/Example_TrackML_UQ/filter/
+project: UQ_MCD_all_pt_filter_1400_HightPT_targets
+accelerator: gpu
+devices: 1
+nodes: 1
+
+# Dataset parameters
+data_split:
+- 1400
+- 50
+- 50
+
+# Calibration parameters
+calibration: false

@@ -1,0 +1,21 @@
+# Common Framework configuration
+stage: graph_construction
+model: MetricLearning
+input_dir: MY_DATA_DIR/Example_TrackML_UQ/feature_store/
+stage_dir: MY_DATA_DIR/Example_TrackML_UQ/metric_learning/
+project: UQ_MCD_all_pt_metric_learning_1400_HightPT_targets
+accelerator: gpu
+devices: 1
+nodes: 1
+
+# Dataset parameters
+data_split:
+- 1400 # training events
+- 50   # validation events
+- 50   # test events
+
+# Model inference parameters
+input_dropout: 0      # see readme for details
+hidden_dropout: 0.1   # see readme for details
+knn_infer: 100
+r_infer: 0.1
