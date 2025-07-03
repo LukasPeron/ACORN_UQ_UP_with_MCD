@@ -13,8 +13,8 @@ data_dir=MY_DATA_DIR
 ```
 You can choose whether to download a small dataset of 100 events `trackml_100_events.zip` (appropriate for toy model training, around 700Mb) or a larger dataset of 1500 events `trackml_1500_events.zip` (appropriate for full event training, around 11Gb):
 ```bash
-wget https://portal.nersc.gov/cfs/m3443/dtmurnane/TrackML_Example/trackml_XXX_events.zip -P $data_dir/Example_4
-wget https://portal.nersc.gov/cfs/m3443/dtmurnane/TrackML_Example/detectors.csv -P $data_dir/Example_4
+wget https://portal.nersc.gov/cfs/m3443/dtmurnane/TrackML_Example/trackml_XXX_events.zip -P $data_dir/Example_TrackML_UQ
+wget https://portal.nersc.gov/cfs/m3443/dtmurnane/TrackML_Example/detectors.csv -P $data_dir/Example_TrackML_UQ
 unzip $data_dir/Example_4/trackml_XXX_events.zip -d $data_dir/Example_4
 ```
 The location of this data, as well as all parameters controlling the GNN4ITk reconstruction chain, is specified in `yaml` config files. The data directory currently has a placeholder MY_DATA_DIR. Replace this with the actual data directory with
