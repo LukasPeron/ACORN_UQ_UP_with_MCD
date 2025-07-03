@@ -15,7 +15,7 @@ You can choose whether to download a small dataset of 100 events `trackml_100_ev
 ```bash
 wget https://portal.nersc.gov/cfs/m3443/dtmurnane/TrackML_Example/trackml_XXX_events.zip -P $data_dir/Example_TrackML_UQ
 wget https://portal.nersc.gov/cfs/m3443/dtmurnane/TrackML_Example/detectors.csv -P $data_dir/Example_TrackML_UQ
-unzip $data_dir/Example_4/trackml_XXX_events.zip -d $data_dir/Example_4
+unzip $data_dir/Example_TrackML_UQ/trackml_XXX_events.zip -d $data_dir/Example_TrackML_UQ
 ```
 The location of this data, as well as all parameters controlling the GNN4ITk reconstruction chain, is specified in `yaml` config files. The data directory currently has a placeholder MY_DATA_DIR. Replace this with the actual data directory with
 ```bash
