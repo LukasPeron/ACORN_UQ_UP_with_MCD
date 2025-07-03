@@ -28,7 +28,6 @@ import yaml
 import click
 import logging
 import torch
-import numpy as np
 import os
 
 from pytorch_lightning import Trainer
