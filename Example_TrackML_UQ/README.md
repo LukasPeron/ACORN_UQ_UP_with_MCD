@@ -52,7 +52,6 @@ acorn infer metric_learning_infer.yaml
 acorn eval metric_learning_eval.yaml
 ```
 
-<u>**if time allows, here you could insert some sample plots so that folks know what a well-trained model should behave**:</u>
 ## Filter
 If the graphs constructed from the metric learning stage are too large (they might be if, for instance, you are training on full events and the metric learning hasn't quite converged, or if you have a GPU with less than 10Gb memory), one can then apply a `Filter` step to reduce the number of edges in the graph. This is done by training a `Filter` model.
 ```bash
