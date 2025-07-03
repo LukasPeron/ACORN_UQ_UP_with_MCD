@@ -21,6 +21,10 @@ The location of this data, as well as all parameters controlling the GNN4ITk rec
 ```bash
 sed -i "s#MY_DATA_DIR#$data_dir#g" *.yaml
 ```
+**CAUTION:** If you are using the 100 events version of TrackML dataset, take care to modify the `data_split` entry in the config files. This can be done automatically by running
+```bash
+sed -i "s#1400#80#g" *.yaml && sed -i "s#- 50#- 10#g" *.yaml
+```
 # Running the Example
 The following commands will run the acorn pipeline. In general, they follow the pattern
 ```
