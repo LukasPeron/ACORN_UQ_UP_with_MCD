@@ -178,7 +178,7 @@ def graph_construction_efficiency(lightning_module, plot_config, config):
             + f"Evaluated on {config.get('dataset_size', 50)} events in {dataset_name}",
         )
         calib_folder = "calibrated" if calibration else "uncalibrated"
-        if not config["input_cut"]:
+        if not config.get("input_cut", False):
             calib_folder += "/no_input_cut"
         else:
             calib_folder += "/with_input_cut"
