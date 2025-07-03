@@ -1,0 +1,27 @@
+List of modifications (at date of July 4th 2025) :
+- The following scripts are not up to date with ACORN latest versions
+  - data_reading/data_reading_stage.py
+  - data_reading/models/athena_root_reader.py
+  - data_readin/models/athena_root_utils.py
+  - data_reading/models/athena_utils.py
+  - data_reading/models/trackml_utils.py
+  - graph_construction/models/py_module_map.py
+  - graph_construction/models/utils.py
+  - track_building/models/cc_and_all_simple_path.py
+  - track_building/models/cc_and_junction_removal.py
+  - track_building/models/connected_components.py
+  - track_building/models/fast_walkthrough_utils.py
+  - track_building/models/fast_walkthrough.py
+  - track_building/models/hgnn.py
+  - track_building/models/ml_track_building.py
+  - track_building/models/walkthrough.py
+    
+- The following script have been modified to handle UQ procedure, please review them individually to inspect variation with actual main ACORN codebase
+  - edge_classifier/edge_classifier_stage.py
+  - edge_classifier/models/filter.py
+  - edge_classifier/models/interaction_gnn.py
+  - graph_construction/models/metric_learning.py
+  - track_building/utils.py
+  - track_buildng/track_building_stage.py
+  - track_building/models/cc_and_walk.py
+  - track_building/models/cc_and_walk_utils.py
