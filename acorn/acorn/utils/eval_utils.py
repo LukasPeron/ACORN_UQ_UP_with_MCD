@@ -414,7 +414,7 @@ def graph_scoring_efficiency(lightning_module, plot_config, config):
     else:
         calib_folder = "uncalibrated"
 
-    if not config["input_cut"]:
+    if not config.get("input_cut", False)::
         calib_folder += "/no_input_cut"
     else:
         calib_folder += "/with_input_cut"
@@ -482,7 +482,7 @@ def graph_scoring_efficiency_compar_calib(lightning_module, plot_config, config)
     fig, ax = plt.subplots(figsize=(8, 6))
     for calib in ["calibrated", "uncalibrated"]:
         calib_folder = calib
-        if not config["input_cut"]:
+        if not config.get("input_cut", False)::
             calib_folder += "/no_input_cut"
         else:
             calib_folder += "/with_input_cut"
@@ -599,7 +599,7 @@ def graph_roc_curve(lightning_module, plot_config, config):
     else:
         calib_folder = "uncalibrated"
     
-    if not config["input_cut"]:
+    if not config.get("input_cut", False)::
         calib_folder += "/no_input_cut"
     else:
         calib_folder += "/with_input_cut"
@@ -812,7 +812,7 @@ def gnn_efficiency_rz(lightning_module, plot_config: dict, config: dict):
     else:
         calib_folder = "uncalibrated"
     
-    if not config["input_cut"]:
+    if not config.get("input_cut", False)::
         calib_folder += "/no_input_cut"
     else:
         calib_folder += "/with_input_cut"
@@ -1009,7 +1009,7 @@ def gnn_purity_rz(lightning_module, plot_config: dict, config: dict):
         else:
             calib_folder = "uncalibrated"
         
-        if not config["input_cut"]:
+        if not config.get("input_cut", False)::
             calib_folder += "/no_input_cut"
         else:
             calib_folder += "/with_input_cut"
@@ -3966,7 +3966,7 @@ def graph_mcdropout_uncertainty(lightning_module, plot_config, config):
     if config.get("multi_dropout", False):
         calib_folder += f"/multi_drop/{dropout_value}"
     else:
-        if not config["input_cut"]:
+        if not config.get("input_cut", False)::
             calib_folder += "/no_input_cut"
         else:
             calib_folder += "/with_input_cut"
@@ -3988,7 +3988,7 @@ def graph_mcdropout_uncertainty(lightning_module, plot_config, config):
 
     for t in tqdm(range(n_mcd_passes)):
         for num_event, filter_event in enumerate(dataset):
-            if not config["input_cut"]: # if input_cut is 0.0 we apply the mask by hand
+            if not config.get("input_cut", False):: # if input_cut is 0.0 we apply the mask by hand
                 input_cut_mask = filter_event.edge_scores < 0.05 # default gnn input cut
             with torch.inference_mode():
                 lightning_module.train()
@@ -3996,7 +3996,7 @@ def graph_mcdropout_uncertainty(lightning_module, plot_config, config):
             gnn_event = eval_dict["batch"]
             edge_scores = gnn_event.edge_scores.cpu().numpy()
             # put all scores that were below the input cut to 0
-            if not config["input_cut"]: # if input_cut is 0.0 we apply the mask by hand
+            if not config.get("input_cut", False):: # if input_cut is 0.0 we apply the mask by hand
                 edge_scores[input_cut_mask.cpu().numpy()] = 0.0
             all_scores[t].append(edge_scores)
             
