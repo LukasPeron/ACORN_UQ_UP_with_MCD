@@ -81,7 +81,10 @@ class GraphConstructionStage:
 
         if stage in ["predict", "test"]:
             torch.set_float32_matmul_precision("highest")
-
+        self.event_prefix = self.hparams.get("event_prefix", "")
+        if self.event_prefix != "":
+            self.event_prefix += "_"
+            
     def load_data(self, input_dir):
         """
         Load in the data for training, validation and testing.
@@ -281,7 +284,7 @@ class EventDataset(Dataset):
             if os.path.exists(f"{event_path}-graph.pyg")
             else f"{event_path}.pyg"
         )
-        graph = torch.load(graph_path)
+        graph = torch.load(graph_path, weights_only=False)
         graph = self.preprocess_graph(graph)
 
         if not self.use_csv:
