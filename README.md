@@ -1,2 +1,6 @@
 # ACORN_UQ_UP_with_MCD
 This repository contains the works I've conducted during my M1 internship at Lawrence Berkeley Lab on the uncertainty quantification and uncertainty propagation analysis for ACORN, a geometric deep learning tracking algorithm developed as part of the GNN4ITk project.
+
+This project assumes that the `acorn` library is installed. Please refer to [ACORN project website](https://gitlab.cern.ch/gnn4itkteam/acorn). A `README` is present in the `acorn/` folder of this repository, but it might not be up to date. One also wants to be careful as the `acorn/acorn/core`, `acorn/acorn/stages` and `acorn/acorn/utils` do not contains only the modification done by myself, but are complete copies of my working material. Therefore, one might want to check first the last ACORN version and import only the modification needed to their purpose. Please, refer to the README in the Example folder to more details on the modification I made.
+
+For any questions regarding this project, please contact me by mail at : [lukas.peron@ens.psl.eu](mailto:lukas.peron@ens.psl.eu)
