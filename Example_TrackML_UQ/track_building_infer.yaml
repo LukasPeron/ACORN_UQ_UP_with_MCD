@@ -14,9 +14,6 @@ score_cut_walk:
   add: 0.6
   min: 0.1
 
-# TO TREAT LATER
-calibration: false
-
 devices: 1
 log_level: INFO
 max_workers: 8
