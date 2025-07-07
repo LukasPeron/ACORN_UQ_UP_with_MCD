@@ -30,6 +30,8 @@ mkdir -p $path_to_metric_learning_plots/plots/calibrated/
 mkdir -p $path_to_metric_learning_plots/plots/uncalibrated/
 mkdir -p $path_to_metric_learning_plots/plots/calibrated/
 
+srun acorn eval $path_to_acorn/metric_learning_eval.yaml
+
 srun acorn train $path_to_acorn/filter_train.yaml 
 srun acorn infer $path_to_acorn/filter_infer.yaml
 
@@ -51,6 +53,7 @@ mkdir -p $path_to_gnn_plots/plots/uncalibrated/
 mkdir -p $path_to_gnn_plots/plots/calibrated/
 
 srun acorn eval $path_to_acorn/gnn_eval.yaml
+
 srun acorn infer $path_to_acorn/track_building_infer.yaml
 
 mkdir -p $path_to_track_building_plots/uncal_res/
