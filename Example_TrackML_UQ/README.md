@@ -26,6 +26,7 @@ sed -i "s#MY_DATA_DIR#$data_dir#g" *.yaml
 sed -i "s#1400#80#g" *.yaml && sed -i "s#- 50#- 10#g" *.yaml
 ```
 Also change the end of `input_dir` entry in `data_reader.yaml` to `trackml_100_events`.
+**NOTE:** If you want to run the all pipeline at once, you can change the paths in `pipeline_job_submission.sh` to use the script.
 # Running the Example
 The following commands will run the acorn pipeline. In general, they follow the pattern
 ```
