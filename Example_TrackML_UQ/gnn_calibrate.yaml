@@ -5,7 +5,7 @@ input_dir: MY_DATA_DIR/Example_TrackML_UQ/filter/
 stage_dir: MY_DATA_DIR/Example_TrackML_UQ/gnn/
 project: UQ_MCD_all_pt_gnn_1400_HightPT_targets
 accelerator: gpu
-devices: 4
+devices: 1
 nodes: 1
 
 # Dataset parameters
