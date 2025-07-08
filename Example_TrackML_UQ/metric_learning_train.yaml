@@ -5,7 +5,7 @@ input_dir: MY_DATA_DIR/Example_TrackML_UQ/feature_store/
 stage_dir: MY_DATA_DIR/Example_TrackML_UQ/metric_learning/
 project: UQ_MCD_all_pt_metric_learning_1400_HightPT_targets
 accelerator: gpu
-devices: 4 # Number of GPUs to use
+devices: 1 # Number of GPUs to use
 nodes: 1 
 
 # Dataset parameters
