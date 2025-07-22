@@ -3966,13 +3966,15 @@ def graph_mcdropout_uncertainty(lightning_module, plot_config, config):
     if config.get("multi_dropout", False):
         calib_folder += f"/multi_drop/{dropout_value}"
     else:
-        if not config.get("input_cut", False):
-            calib_folder += "/no_input_cut"
-        else:
-            calib_folder += "/with_input_cut"
+        if not isinstance(lightning_module, Filter):
+            if not config.get("input_cut", False):
+                calib_folder += "/no_input_cut"
+            else:
+                calib_folder += "/with_input_cut"
     
     config["stage_dir"] = os.path.join(config["stage_dir"], "plots", calib_folder)
-
+    if not os.path.exists(config["stage_dir"]):
+        os.makedirs(config["stage_dir"])
     all_target_truth = [None for _ in range(len(dataset))]     # Store target truth once per event
     all_non_target_truth = [None for _ in range(len(dataset))] # Store non-target truth once per event
     all_false = [None for _ in range(len(dataset))]            # Store false edges once per event
@@ -3988,7 +3990,7 @@ def graph_mcdropout_uncertainty(lightning_module, plot_config, config):
 
     for t in tqdm(range(n_mcd_passes)):
         for num_event, filter_event in enumerate(dataset):
-            if not config.get("input_cut", False): # if input_cut is 0.0 we apply the mask by hand
+            if not config.get("input_cut", False) and not isinstance(lightning_module, Filter): # if input_cut is 0.0 we apply the mask by hand
                 input_cut_mask = filter_event.edge_scores < 0.05 # default gnn input cut
             with torch.inference_mode():
                 lightning_module.train()
@@ -3996,7 +3998,7 @@ def graph_mcdropout_uncertainty(lightning_module, plot_config, config):
             gnn_event = eval_dict["batch"]
             edge_scores = gnn_event.edge_scores.cpu().numpy()
             # put all scores that were below the input cut to 0
-            if not config.get("input_cut", False): # if input_cut is 0.0 we apply the mask by hand
+            if not config.get("input_cut", False) and not isinstance(lightning_module, Filter): # if input_cut is 0.0 we apply the mask by hand
                 edge_scores[input_cut_mask.cpu().numpy()] = 0.0
             all_scores[t].append(edge_scores)
             
