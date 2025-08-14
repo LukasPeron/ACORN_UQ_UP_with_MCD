@@ -129,6 +129,41 @@ def plot_edges(event):
 
 plot_edges(event)
 
+def plot_track_edges(event):
+    fig, ax = plt.subplots(1, 1, figsize=(6,6))
+    for n_edge in tqdm(range(len(event.track_edges[0]))):
+        edge_in = event.track_edges[0][n_edge].item()
+        edge_out = event.track_edges[1][n_edge].item()
+        r1, phi1, z1 = event.r[edge_in], event.phi[edge_in], event.z[edge_in]
+        r2, phi2, z2 = event.r[edge_out], event.phi[edge_out], event.z[edge_out]
+        # convert to x, y coordinates for x-y plane
+        x1, y1 = r1 * np.cos(phi1), r1 * np.sin(phi1)
+        x2, y2 = r2 * np.cos(phi2), r2 * np.sin(phi2)
+        # plot in x-y plane
+    if event.pt[n_edge] < 1000:
+        ax.plot([x1, x2], [y1, y2], color='red', alpha=0.25, linewidth=0.1)
+    else:
+        ax.plot([x1, x2], [y1, y2], color='green', alpha=0.5, linewidth=0.4)
+
+    # set the limits for x-y plane
+    ax.set_xlim(-1100, 1100)
+    ax.set_ylim(-1100, 1100)
+    
+    # set the aspect ratio to be equal for x-y plane
+    ax.set_aspect('equal', adjustable='box')
+    
+    # labels for x-y plane
+    ax.set_ylabel("y [mm]", fontsize=14, ha="right", y=0.95)
+    ax.set_xlabel("x [mm]", fontsize=14, ha="right", x=0.95)
+    
+    # set the title for x-y plane
+    atlasify("Truth tracks", outside=True)
+    
+    fig.tight_layout()
+    fig.savefig("/pscratch/sd/l/lperon/ATLAS/acorn/UQ_code/MCD/trackML/plots/true_track_edges_xy.png", dpi=300)
+
+plot_track_edges(event)
+
 # load csv raw data
 import pandas as pd
 raw_data = pd.read_csv("/pscratch/sd/l/lperon/ATLAS/data_dir/Example_3/trackml_1500_events/event000021000-hits.csv")
@@ -364,3 +399,85 @@ def plot_tracks_3d(event):
     fig.savefig("/pscratch/sd/l/lperon/ATLAS/acorn/UQ_code/MCD/trackML/all_pt/tracks_3d_visualization.png", dpi=300, bbox_inches='tight')
 
 plot_tracks_3d(event)
+
+def plot_pipeline():
+    """
+    Plot side-by-side (x-y) projections of:
+      1. Metric learning graph edges
+      2. GNN graph edges
+      3. Reconstructed tracks
+    Uses fixed file paths for event000021000.
+    """
+    # File paths
+    ml_event_path = "/pscratch/sd/l/lperon/UQ_data/MCD/trackML/all_pt/1400/metric_learning/valset/event000021000.pyg"
+    gnn_event_path = "/pscratch/sd/l/lperon/UQ_data/MCD/trackML/all_pt/1400/gnn/valset/event[['000021000']].pyg"
+    track_file_path = "/pscratch/sd/l/lperon/UQ_data/MCD/trackML/all_pt/1400/track_building/valset_tracks/event[['000021000']].txt"
+    
+    # Load events
+    ml_event = torch.load(ml_event_path, weights_only=False)
+    gnn_event = torch.load(gnn_event_path, weights_only=False)
+    
+    fig, axes = plt.subplots(1, 3, figsize=(18, 6))
+    ax_ml, ax_gnn, ax_rec = axes
+    
+    # 1. Metric learning graph edges
+    for idx in tqdm(range(len(ml_event.edge_index[0])), desc="Metric learning edges"):
+        e_in = ml_event.edge_index[0][idx].item()
+        e_out = ml_event.edge_index[1][idx].item()
+        r1, phi1 = ml_event.r[e_in], ml_event.phi[e_in]
+        r2, phi2 = ml_event.r[e_out], ml_event.phi[e_out]
+        x1, y1 = r1 * np.cos(phi1), r1 * np.sin(phi1)
+        x2, y2 = r2 * np.cos(phi2), r2 * np.sin(phi2)
+        ax_ml.plot([x1, x2], [y1, y2], color='grey', alpha=0.35, linewidth=0.10)
+    
+    # 2. GNN graph edges
+    for idx in tqdm(range(len(gnn_event.edge_index[0])), desc="GNN edges"):
+        e_in = gnn_event.edge_index[0][idx].item()
+        e_out = gnn_event.edge_index[1][idx].item()
+        r1, phi1 = gnn_event.r[e_in], gnn_event.phi[e_in]
+        r2, phi2 = gnn_event.r[e_out], gnn_event.phi[e_out]
+        x1, y1 = r1 * np.cos(phi1), r1 * np.sin(phi1)
+        x2, y2 = r2 * np.cos(phi2), r2 * np.sin(phi2)
+        ax_gnn.plot([x1, x2], [y1, y2], color='black', alpha=0.35, linewidth=0.10)
+    
+    # 3. Reconstructed tracks (reuse logic from plot_edges)
+    with open(track_file_path, 'r') as f:
+        num_tracks = sum(1 for _ in f)
+    # Need a reference event for hit geometry (use gnn_event which has r,phi,z,hit_id)
+    ref_event = gnn_event
+    for n in tqdm(range(num_tracks), desc="Reconstructed tracks"):
+        track = np.loadtxt(track_file_path, skiprows=n, max_rows=1).astype(int).tolist()
+        if isinstance(track, int):
+            track = [track]
+        if len(track) < 2:
+            continue
+        track = np.array(track)
+        node_id = np.searchsorted(ref_event.hit_id, track)
+        r_vals = ref_event.r[node_id]
+        phi_vals = ref_event.phi[node_id]
+        # Order by radius
+        order = np.argsort(r_vals)
+        r_sorted = r_vals[order]
+        phi_sorted = phi_vals[order]
+        x = r_sorted * np.cos(phi_sorted)
+        y = r_sorted * np.sin(phi_sorted)
+        ax_rec.plot(x, y, color='blue', alpha=0.35, linewidth=0.12)
+    
+    # Common styling
+    for ax in axes:
+        ax.set_xlim(-1100, 1100)
+        ax.set_ylim(-1100, 1100)
+        ax.set_aspect('equal', adjustable='box')
+        ax.set_xlabel("x [mm]", fontsize=12, ha="right", x=0.95)
+        ax.set_ylabel("y [mm]", fontsize=12, ha="right", y=0.95)
+    
+    atlasify("Metric learning graph", axes=ax_ml, outside=True)
+    atlasify("GNN graph", axes=ax_gnn, outside=True)
+    atlasify("Reconstructed tracks", axes=ax_rec, outside=True)
+    
+    fig.tight_layout()
+    out_path = "/pscratch/sd/l/lperon/ATLAS/acorn/UQ_code/MCD/trackML/plots/pipeline_visualisation_xy.png"
+    fig.savefig(out_path, dpi=300)
+    return fig
+
+plot_pipeline()
