@@ -5,4 +5,4 @@ This project assumes that the `acorn` library is installed. Please refer to [ACO
 
 For any questions regarding this project, please contact me by mail at : [lukas.peron@ens.psl.eu](mailto:lukas.peron@ens.psl.eu)
 
-This project will be presented at UQ4ML COMETA [[Indico]([https://indico.cern.ch/event/1514154/overview](https://indico.cern.ch/event/1514154/contributions/6620167/))] and Connecting The Dots 2025 [[Indico]([https://indico.cern.ch/event/1499357/overview](https://indico.cern.ch/event/1499357/contributions/6621995/))] workshop.
+This project will be presented at UQ4ML COMETA [Indico]([https://indico.cern.ch/event/1514154/overview](https://indico.cern.ch/event/1514154/contributions/6620167/)) and Connecting The Dots 2025 [Indico]([https://indico.cern.ch/event/1499357/overview](https://indico.cern.ch/event/1499357/contributions/6621995/)) workshop.
