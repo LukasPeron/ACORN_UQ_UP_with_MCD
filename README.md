@@ -1,6 +1,8 @@
 # ACORN_UQ_UP_with_MCD
 This repository contains the works I've conducted during my M1 internship at Lawrence Berkeley Lab on the uncertainty quantification and uncertainty propagation analysis for ACORN, a geometric deep learning tracking algorithm developed as part of the GNN4ITk project. Details about the project can be found [here](https://arxiv.org/abs/2508.16518).
 
+The UQ of ACORN is done with the Monte Carlo Dropout method on the TrackML dataset without hardcut on $p_T$. No comparison with other baseline (BNN, Deep Ensembles, ...) is provided as a result of lack of time. You are welcome to work on this project and upgrade it. If so, please contact the author by mail (see the adress at the bottom of this Read me).
+
 This project assumes that the `acorn` library is installed. Please refer to [ACORN project website](https://gitlab.cern.ch/gnn4itkteam/acorn). A `README` is present in the `acorn/` folder of this repository, but it might not be up to date. One also wants to be careful as the `acorn/acorn/core`, `acorn/acorn/stages` and `acorn/acorn/utils` do not contains only the modification done by myself, but are complete copies of my working material. Therefore, one might want to check first the last ACORN version and import only the modification needed to their purpose. Please, refer to the README in the Example folder to more details on the modification I made. There is no package for the installation of the change I made, they have to be done manually. Please, proceed with caution.
 
 This project has been presented at UQ4ML COMETA [Indico](https://indico.cern.ch/event/1514154/contributions/6620167/) and Connecting The Dots 2025 [Indico](https://indico.cern.ch/event/1499357/contributions/6621995/) workshop.
